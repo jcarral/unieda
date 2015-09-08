@@ -69,7 +69,6 @@ public class HW00_0 {
 		int[] data = {1, 9, 1};
 		int[] buffer = new int[data.length];
 		int[] freqs = new int[data.length];
-		
 		System.out.println(freqs(data, buffer, freqs));
 		
 		int[] a = {48, 60, 6, 3};
