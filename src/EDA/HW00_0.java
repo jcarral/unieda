@@ -5,8 +5,20 @@ import java.util.Arrays;
 public class HW00_0 {
 
 	public static int gcd(int[] values){
-		return 0;
+		int num = gcd(values[0], values[1]);
+		for(int i = 2; i<values.length; i++){
+			num = (values[i]<num)?gcd(num, values[i]):gcd(values[i], num);
+		}
+		return num;
 	}
+	
+	private static int gcd(int a, int b){
+		if(b == 0)
+			return a;
+		else 
+			return gcd(b, a % b);
+	}
+	
 	
 	public static int freqs(int[]  data, int[] buffer, int[] freqs){
 		//Arrays.sort(data);
@@ -53,6 +65,10 @@ public class HW00_0 {
 		int[] freqs = new int[data.length];
 		
 		System.out.println(freqs(data, buffer, freqs));
+		
+		int[] a = {48, 60, 6, 3};
+		
+		System.out.println(gcd(a));
 	}
 	
 }
