@@ -24,28 +24,22 @@ public class HW00_0 {
 		if (data.length == 0)
 			return 0;
 		ordenar(data);
-		resetArray(buffer);
-		resetArray(freqs);
 		int n = 1;
 		buffer[0] = data [0];
 		freqs[0] = 1;
 		for(int i = 1; i<data.length; i++){
 			if(data[i] == data[i-1]){
 				freqs[n-1]++;
+				
 			}else{
 				buffer[n] = data[i];
-				freqs[n]++;
+				freqs[n] = 1;
 				n++;
 			}
 		}
 		return n;
 	}
 	
-	private static void resetArray(int[] a){
-		for(int i = 0; i<a.length; i++){
-			a[i]= 0;
-		}
-	}
 	private static void ordenar(int[] a){  
       for(int i = 0; i < a.length - 1; i++){
           intercambio(a);
@@ -67,7 +61,7 @@ public class HW00_0 {
 	 */
 	public static void main(String[] args){
 		int[] data = {1, 9, 1};
-		int[] buffer = new int[data.length];
+		int[] buffer = {5, 6, 7};
 		int[] freqs = new int[data.length];
 		System.out.println(freqs(data, buffer, freqs));
 		
