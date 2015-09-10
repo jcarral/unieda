@@ -1,7 +1,10 @@
-package EDA;
+
 
 import java.util.Arrays;
 
+/*
+ * Tiempo empleado: 1h
+ */
 public class HW00_0 {
 
 	public static int gcd(int[] values){
