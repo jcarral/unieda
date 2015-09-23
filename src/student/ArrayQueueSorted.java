@@ -4,9 +4,14 @@ import java.util.Comparator;
 
 public class ArrayQueueSorted<T> implements SortedList<T> {
 	private int first = 0, last = 0;
+	private T[] a;
+	private Comparator<? super T> comparator;
+	private final static int MAX_DEFAULT = 10;
+	
 	
 	public ArrayQueueSorted(Comparator <? super T> comparator){
-		
+		this.comparator = comparator;
+		a = (T[]) new Object[MAX_DEFAULT];
 	}
 	
 	@Override

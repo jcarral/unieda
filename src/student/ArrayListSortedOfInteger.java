@@ -1,93 +1,83 @@
 package student;
 
 public class ArrayListSortedOfInteger implements SortedList<Integer>{
-
-	private int first, last;
-	private int[] a;
-	private static final int MAX_DEFAULT = 10;
 	
+	private static final int DEFAULT_SIZE = 10;
+	private Integer[] a;
+	private int size;
 	
-	
-	public ArrayListSortedOfInteger() {
-		a = new int[MAX_DEFAULT];
+	public ArrayListSortedOfInteger(){
+		 this(DEFAULT_SIZE);
 	}
 	
-	public ArrayListSortedOfInteger(int n){
-		a = new int[n];
+	public ArrayListSortedOfInteger(int capacity){
+		if(capacity <= 0) throw new IllegalArgumentException("El tamaño no puede ser negativo");
+		
+		a = new Integer[capacity];
+		size = 0;
 	}
-
+	
 	@Override
 	public int size() {
-		return last-first+1;
+		return this.size;
 	}
 
 	@Override
 	public boolean add(Integer e) {
-		for(int i = 0; i<a.length; i++){
+		int i;
+		if(a.length == size){
+			ajustarCapacidad(size*2);
+		}
+		for(i = 0; i<size; i++){
 			if(a[i] == e)
 				return false;
-			if(a[i] < e ){
-				addElem(e, i);
-				return true;
-			}						
+			else if(a[i]< e)
+				continue;
+			break;
 		}
-		addElem(e, a.length);
+		add(i, e);
 		return true;
 	}
-
-	private void addElem(int e, int pos){
-		if(last == a.length)
-			resize();	
-		for(int i = pos; i<a.length;i++){
-			int aux = a[i];
-			a[i] = e;
-			e = aux;
+	private void ajustarCapacidad(int size){
+		Integer[] newArray = new Integer[size];
+		
+		for(int i = 0; i<this.size; i++){
+			newArray[i] = a[i];
 		}
+		a = newArray;
 	}
 	
-	private void resize(){
-		int i,j,  newSize = (last-first+1)*2;
-		int [ ] old = a;
-		a = new int[newSize];
-		for(i=0, j = first;j<last;i++, j++)
-			a[i] = old[j];
-		first = 0;
-		last = i;
+	private void add(int i, int e){
+		for(int j = size; j>i; j--){
+			a[j] = a[j-1];
+		}
+		a[i] = e;
 	}
-	
+
 	@Override
 	public Integer removeFirst() {
-		int aux = a[first];
-		a[first] = -1;
-		first++;
-		return aux;
+		if(size()==0)
+			return null;
+		int element = a[0];
+		ajustarArray();
+		size--;
+		return element;
 	}
-
+	
+	private void ajustarArray(){
+		for(int i = 0; i<size; i++){
+			a[i]=a[i+1];
+		}
+	}
 	@Override
 	public Integer removeLast() {
-		int aux = a[last];
-		if(last == 0)
-			last = a.length-1;
-		else
-			last--;
-		return aux;
+		if(size() == 0)
+			return null;
+		int element = a[size-1];
+		a[size-1] = null;
+		size--;
+		return element;
 	}
+
 	
-	private void print(){
-		String s = "[ ";
-		for(int i : a)
-			s += i + ", ";
-		s+= "]";
-		System.out.println(s);
-	}
-	
-	public static void main(String[] args){
-		ArrayListSortedOfInteger lista = new ArrayListSortedOfInteger(20);
-		for(int i = 0; i < 20; i++){
-			lista.add(i+5);
-			int b = (i%5 == 0)?lista.removeFirst():lista.removeLast();
-			
-		}
-		lista.print();
-	}
 }
