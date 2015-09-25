@@ -1,5 +1,5 @@
 package student;
-
+//Tiempo empleado: 1 hora
 public class ArrayListSortedOfInteger implements SortedList<Integer>{
 	
 	private static final int DEFAULT_SIZE = 10;
@@ -52,6 +52,7 @@ public class ArrayListSortedOfInteger implements SortedList<Integer>{
 			a[j] = a[j-1];
 		}
 		a[i] = e;
+		size++;
 	}
 
 	@Override
@@ -65,9 +66,10 @@ public class ArrayListSortedOfInteger implements SortedList<Integer>{
 	}
 	
 	private void ajustarArray(){
-		for(int i = 0; i<size; i++){
+		for(int i = 0; i<size-1; i++){
 			a[i]=a[i+1];
 		}
+		
 	}
 	@Override
 	public Integer removeLast() {
@@ -79,5 +81,12 @@ public class ArrayListSortedOfInteger implements SortedList<Integer>{
 		return element;
 	}
 
+	public String toString(){
+		String s = "";
+		for(int i = 0; i<size; i++ ){
+			s += a[i] + ", ";
+		}
+		return s;
+	}
 	
 }

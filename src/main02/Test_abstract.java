@@ -5,7 +5,7 @@ import java.util.Comparator;
 import student.SortedList;
 
 public abstract class Test_abstract<T> {
-	T[] data = makeSortedArray();
+	private static final int DEFAULT = 10;
 	Comparator<T> comparator = newComparator();
 
 	public void emptySize() {
@@ -15,12 +15,14 @@ public abstract class Test_abstract<T> {
 
 	public void singletonSize() {
 		SortedList<T> lst = newSortedList();
+		T[] data = makeSortedArray(1);
 		lst.add(data[0]);
 		assertTrue("size({x}) == 1", lst.size() == 1);
 	}
 
 	public void singletonNoDuplicates() {
 		SortedList<T> lst = newSortedList();
+		T[] data = makeSortedArray(1);
 		T x = data[0];
 		lst.add(x);
 		lst.add(x);
@@ -29,6 +31,7 @@ public abstract class Test_abstract<T> {
 
 	public void singletonFirst() {
 		SortedList<T> lst = newSortedList();
+		T[] data = makeSortedArray(1);
 		T x = data[0];
 		lst.add(x);
 		T tmp = lst.removeFirst();
@@ -38,7 +41,8 @@ public abstract class Test_abstract<T> {
 
 	public void singletonLast() {
 		SortedList<T> lst = newSortedList();
-		T x = data[data.length - 1];
+		T[] data = makeSortedArray(1);
+		T x = data[0];
 		lst.add(x);
 		T tmp = lst.removeLast();
 		assertTrue("size({}) == 0", lst.size() == 0);
@@ -48,6 +52,7 @@ public abstract class Test_abstract<T> {
 	public void bigSize() {
 		SortedList<T> lst = newSortedList();
 		int l = bigSizeLength();
+		T[] data = makeSortedArray(l);
 		for (int i = 0, j = l - 1; i <= j; i++, j--) {
 			lst.add(data[i]);
 			lst.add(data[j]);
@@ -64,6 +69,7 @@ public abstract class Test_abstract<T> {
 
 	public void checkAddFirst() {
 		SortedList<T> lst = newSortedList();
+		T[] data = makeSortedArray(5);
 		T x1 = data[1];
 		T x2 = data[2];
 		T x3 = data[3];
@@ -85,35 +91,38 @@ public abstract class Test_abstract<T> {
 
 	public void checkAddLast() {
 		SortedList<T> lst = newSortedList();
+		T[] data = makeSortedArray(defaultCapacity() + 2);
 		for (int i = 0; i < defaultCapacity(); i++)
 			lst.add(data[i]);
 		T tmp = lst.removeFirst();
 		tmp = lst.removeFirst();
 		assertTrue("first({...}) == ", comparator.compare(data[1], tmp) == 0);
-		lst.add(data[defaultCapacity() + 2]);
-		lst.add(data[defaultCapacity() + 1]);
+		lst.add(data[data.length - 1]);
+		lst.add(data[data.length - 2]);
 		tmp = lst.removeLast();
-		assertTrue("last({...}) == " + defaultCapacity() + 2,
-				comparator.compare(data[defaultCapacity() + 2], tmp) == 0);
+		assertTrue("last({...}) == " + data[data.length - 1],
+				comparator.compare(data[data.length - 1], tmp) == 0);
 	}
-
-	protected abstract int defaultCapacity();
 
 	protected abstract SortedList<T> newSortedList();
 
-	protected abstract T[] makeSortedArray();
-
 	protected abstract Comparator<T> newComparator();
-
-	protected int bigSizeLength() {
-		return data.length;
-	}
 
 	protected void assertTrue(String msg, boolean b) {
 		if (!b) {
 			System.out.println("Error..." + msg);
 			throw new RuntimeException(msg);
 		}
+	}
+
+	protected abstract T[] makeSortedArray(int n);
+
+	protected int defaultCapacity() {
+		return DEFAULT;
+	}
+
+	protected int bigSizeLength() {
+		return 2 * defaultCapacity();
 	}
 
 	public void runAllTests() {

@@ -1,5 +1,6 @@
 package student;
 
+//Tiempo empleado: 30minutos
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -23,7 +24,7 @@ public class SortedLinkedListOfInteger implements SortedList<Integer>, Iterable<
 	
 	
 	//Constructor
-	SortedLinkedListOfInteger(){
+	public SortedLinkedListOfInteger(){
 		size=0;
 	}
 	
@@ -36,23 +37,73 @@ public class SortedLinkedListOfInteger implements SortedList<Integer>, Iterable<
 
 	
 	public boolean add(Integer e) {
-		Node current = first;
 		
-		while (current != null){
-			if(current.item == e)
+		Node newNode = new Node(null, null, e);
+		
+		if(size==0){//lista vacia
+			first = newNode;
+			last = newNode;
+			size++;
+			
+		}else if(size==1){//lista de un elemento
+			if(e == first.item)
 				return false;
-			if(current.item<e){
-				current = current.next;
-				continue;
+			else if(e>first.item){
+				last = newNode;
+				first.next = last;
+				last.prev = first;
 			}
-			break;		
+			else{
+				newNode.next = first;
+				first.prev = newNode;
+				first = newNode;			
+			}
+			size++;
+		}else{//lista de m�s de un elemento
+			Node current = first;
+			while (current != null){
+				if(current.item == e)
+					return false;
+				if(current.item<e){
+					current = current.next;
+					continue;
+				}
+				break;
+				
+			}
+			
+			if(current == null){ //a�adir al final
+				addLast(newNode);
+			}else if(current==first){
+				//addFirst(newNode);
+			}
+			else
+				addBefore(newNode, current);
 		}
-		Node newNode = new Node(current.prev, current, e);
-		current.prev.next = newNode;
-		current.prev = newNode;
-		size++;
 		return true;
 		 
+	}
+	
+	private void addFirst(Node node){
+		first.prev = node;
+		node.next = first;
+		first = node;
+		size++;
+	}
+	
+	private void addLast(Node node){
+		last.next = node;
+		node.prev = last;
+		last = node;
+		size++;
+	}
+	
+	private void addBefore(Node node, Node current){
+		current.prev.next = node;
+		node.prev = current.prev;
+		current.prev = node;
+		node.next = current;
+		size++;
 	}
 
 	
@@ -96,7 +147,7 @@ public class SortedLinkedListOfInteger implements SortedList<Integer>, Iterable<
 	}
 
 	
-	public Iterator<Integer> iterator() {
+	 public Iterator<Integer> iterator() {
 		return new ListIterator();
 	}
 	

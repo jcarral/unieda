@@ -3,7 +3,7 @@ package main02;
 import student.BoundedArrayQueueSorted;
 import student.SortedList;
 
-public class TestBoundedArrayQueueSorted extends TestArrayQueueSorted {
+public class TestBoundedArrayQueueSorted extends Test_abstract_integer {
 	private static final int DEFAULT = 10;
 
 	@Override

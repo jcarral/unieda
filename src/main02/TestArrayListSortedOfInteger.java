@@ -1,9 +1,9 @@
 package main02;
 
-import student.ArrayQueueSorted;
+import student.ArrayListSortedOfInteger;
 import student.SortedList;
 
-public class TestArrayQueueSorted extends Test_abstract_integer {
+public class TestArrayListSortedOfInteger extends Test_abstract_integer {
 	private static final int DEFAULT = 10;
 
 	@Override
@@ -13,10 +13,10 @@ public class TestArrayQueueSorted extends Test_abstract_integer {
 
 	@Override
 	protected SortedList<Integer> newSortedList() {
-		return new ArrayQueueSorted<Integer>(Comparator);
+		return new ArrayListSortedOfInteger();
 	}
 
 	public static void main(String[] args) {
-		new TestArrayQueueSorted().runAllTests();
+		new TestArrayListSortedOfInteger().runAllTests();
 	}
 }
