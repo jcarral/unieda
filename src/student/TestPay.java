@@ -16,7 +16,7 @@ public class TestPay {
 		lista.add(new Payment("Mikel", 60, "Jon"));
 		
 		Contable cont = new Contable(jugadores, falsario, cantidadInicial, lista.iterator());
-		System.out.println(cont.cantidadLegalDe("Jon"));
+		System.out.println(cont.cantidadLegalDe("Mikel"));
 	}
 
 }

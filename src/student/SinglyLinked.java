@@ -19,7 +19,7 @@ public class SinglyLinked<T> {
 	
 	
 	public int size(){
-		
+		return 0;
 	}
 	
 	public void print(){
@@ -27,7 +27,7 @@ public class SinglyLinked<T> {
 	}
 	
 	public boolean test(T x){
-		
+		return false;
 	}
 	
 	public void add(T x){
