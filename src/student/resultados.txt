@@ -1,0 +1,8 @@
+=============LISTA DE QUEBRADOS================
+
+Quebrado: 5/6, Representante canónico: 5/6
+Quebrado: 7/8, Representante canónico: 7/8
+Quebrado: 7/8, Representante canónico: 7/8
+Quebrado: 6/6, Representante canónico: 1/1
+Quebrado: 12/6, Representante canónico: 2/1
+Quebrado: 123/34, Representante canónico: 123/34

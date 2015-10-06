@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * @author Joseba Tiempo empleado: 15 minutos
+ * @author Joseba Tiempo empleado: 20 minutos
  */
 public class Contable {
 
@@ -19,7 +19,7 @@ public class Contable {
 		this.falsario = falsario;
 		this.cantidadInicial = cantidadInicial;
 		this.itr = itr;
-		tacos = (LinkedList<Boolean>[]) new LinkedList[jugadores.length];
+		tacos =  new LinkedList[jugadores.length];
 
 		iniciar();
 		calcularPartida();
@@ -59,6 +59,8 @@ public class Contable {
 	}
 
 	/**
+	 * 
+	 * Transfiere el dinero del perdedor al ganador
 	 * @param players
 	 *            Array con las posiciones del perdedor y ganador
 	 * @param amount
@@ -71,6 +73,8 @@ public class Contable {
 	}
 
 	/**
+	 * 
+	 * Devuelve las posiciones de dos jugadores
 	 * @param winner
 	 *            Nombre del que recibira el dinero
 	 * @param looser
@@ -94,6 +98,8 @@ public class Contable {
 	}
 
 	/**
+	 * 
+	 * Devuelve la posicion del jugador
 	 * @param player
 	 *            Nombre del jugador a buscar
 	 * @return posicion del jugador en el array jugadores
@@ -107,6 +113,8 @@ public class Contable {
 	}
 
 	/**
+	 * 
+	 * Devuelve la cantidad de dinero real que tiene el jugador en la pos n
 	 * @param pos
 	 *            posicicion en el array jugadores del jugador que se calculara
 	 *            su dinero
@@ -114,7 +122,8 @@ public class Contable {
 	 */
 	private int calculateMoney(int pos) {
 		int amount = 0;
-		for (int i = 0; i < tacos[pos].size(); i++) {
+		int size = tacos[pos].size();
+		for (int i = 0; i < size; i++) {
 			if (tacos[pos].get(i))
 				amount++;
 		}

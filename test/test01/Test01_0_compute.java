@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import ehu.RankListPunto2D;
 import student.AlgPunto2D;
 import student.Punto2D;
 
@@ -30,7 +31,7 @@ public class Test01_0_compute extends Test01_0_compute_abstract {
 		return new Function() {
 			@Override
 			public int[] apply(Punto2D[] points) {
-				return new AlgPunto2D().compute(points);
+				return new RankListPunto2D().compute(points);
 			}
 		};
 	}
