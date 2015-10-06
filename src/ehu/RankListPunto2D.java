@@ -4,6 +4,19 @@ import java.util.*;
 
 import student.Punto2D;
 
+/**
+ * Tiempo utilizado: 2h
+ * 
+ * Calcula el rango de cada elemento del array utilizando un algoritmo recursivo
+ * con coste O(nlogn). El funcionamiento es el siguiente: primero se ordena el
+ * array inicial según la abscisa y posteriormente se empieza a dividir en
+ * subarrays más pequeños de tamaño n/2 cada vez hasta que se llega al caso base
+ * donde el tamaño es 1. A partir de ahí se vuelven a fusionar en el mismo orden
+ * pero esta vez ordenandolo según la ordenada y luego se calcula el rango de
+ * cada elemento contando los elementos que vienen por su izquierda y además una
+ * vez ordenados sobre el eje Y siguen a la izquierda del array.
+ *
+ */
 public class RankListPunto2D {
 
 	/**
@@ -20,7 +33,7 @@ public class RankListPunto2D {
 			v[i] = new Punto2DExtended(points[i], i);
 		v = ordenarAbscisa(v);
 
-		computeInternal(v, 0, v.length);
+		computeInternal(v, 0, v.length - 1);
 
 		int[] r = new int[v.length];
 		// Copiar el rango de cada punto en la posiciÛn correspondiente del
@@ -33,24 +46,46 @@ public class RankListPunto2D {
 	}
 
 	private void computeInternal(Punto2DExtended[] points, int from, int to) {
-		if (from >= to)
+		int size = to - from + 1;
+		if (size == 1 || size == 0)
 			return;
-		int mid = (from + to) / 2;
-		computeInternal(points, from, mid);
-		computeInternal(points, mid + 1, to);
-		
-		if(to>=points.length)
-			to--;
-		marcarIzquierda(points, from, mid);
-		ordenarY(points, from, mid + 1, to);
-		calcularRank(points, from, to);
+		int mid = from + to - ((from + to) / 2);
+
+		if (size == 2) {
+			computeInternal(points, from, from);
+			computeInternal(points, to, to);
+			marcarIzquierda(points, from, from);
+			ordenarY(points, from, mid, to);
+			calcularRank(points, from, to);
+		} else {
+			computeInternal(points, from, mid - 1);
+			computeInternal(points, mid, to);
+			marcarIzquierda(points, from, mid - 1);
+			ordenarY(points, from, mid, to);
+			calcularRank(points, from, to);
+		}
 
 	}
 
+	/**
+	 * Pre: Secuencia ordenada segun la ordenada Calcula el rango de los
+	 * elementos que estan en la parte derecha. Para calcularlo cada vez que
+	 * pasa por un elemento que tiene marcado isLeft añade uno a la variable
+	 * addRank, si no tiene isLeft entoces aumenta su rango con addRank puesto
+	 * que son los cantidad de numeros que estan a la izquierda y con menor
+	 * ordenada.
+	 * 
+	 * @param points
+	 *            Array con todos los puntos
+	 * @param from
+	 *            Indice desde el que empezar a contar
+	 * @param to
+	 *            Indice del último que se cuenta
+	 */
 	private void calcularRank(Punto2DExtended[] points, int from, int to) {
 		int addRank = 0;
-		
-		for (int i = from; i <= to && i<points.length-1; i++) {
+
+		for (int i = from; i <= to; i++) {
 			if (points[i].isLeft) {
 				addRank++;
 				points[i].isLeft = false;
@@ -61,15 +96,38 @@ public class RankListPunto2D {
 
 	}
 
+	/**
+	 * Marca como isLeft todos los elementos que en ese momento estan en la
+	 * parte izquierda
+	 * 
+	 * @param points
+	 *            Array con todos los puntos
+	 * @param from
+	 *            Indice desde el que empezar a contar
+	 * @param to
+	 *            Indice hasta el que contar
+	 */
 	private void marcarIzquierda(Punto2DExtended[] points, int from, int to) {
 
 		for (int i = from; i <= to; i++)
 			points[i].isLeft = true;
 	}
 
+	/**
+	 * Ordena según la ordenada fusionando todos los elementos que van desde
+	 * from hasta mid con los que van desde mid hasta to
+	 * 
+	 * @param points
+	 *            Array con todos los puntos
+	 * @param from
+	 *            Indice desde el que empezar a contar
+	 * @param mid
+	 *            Indice del segundo subarray
+	 * @param to
+	 *            Indice del último elemento
+	 */
 	private void ordenarY(Punto2DExtended[] points, int from, int mid, int to) {
-		if (mid >= points.length)
-			return;
+
 		Punto2DExtended[] aux = new Punto2DExtended[to - from + 1];
 		int i = 0;
 		int auxFrom = from, auxMid = mid;
@@ -97,42 +155,52 @@ public class RankListPunto2D {
 		copiarArray(points, aux, from);
 	}
 
+	/**
+	 * Copia todos los elementos del array aux en points empezando desde front
+	 * 
+	 * @param points
+	 *            Array con todos los puntos
+	 * @param aux
+	 *            Array con los elementos ordenados
+	 * @param from
+	 *            Indice desde el que empezar a copiar
+	 */
 	private void copiarArray(Punto2DExtended[] points, Punto2DExtended[] aux, int from) {
-		for (int i = from, j = 0; i < aux.length; i++, j++)
+		for (int i = from, j = 0; j < aux.length; i++, j++)
 			points[i] = aux[j];
 	}
 
+	/**
+	 * Ordena el array de entrada según la abscisa usando un algoritmo mergesort
+	 * con coste O(nlogn)
+	 * 
+	 * @param list
+	 *            Array con todos los elementos de la lista
+	 * @return Devuelve una lista ordenada según la abscisa
+	 */
 	private static Punto2DExtended[] ordenarAbscisa(Punto2DExtended[] list) {
 		if (list.length <= 1) {
 			return list;
 		}
 
-		// Split the array in half
 		Punto2DExtended[] first = new Punto2DExtended[list.length / 2];
 		Punto2DExtended[] second = new Punto2DExtended[list.length - first.length];
 		System.arraycopy(list, 0, first, 0, first.length);
 		System.arraycopy(list, first.length, second, 0, second.length);
 
-		// Sort each half
 		ordenarAbscisa(first);
 		ordenarAbscisa(second);
 
-		// Merge the halves together, overwriting the original array
 		ordenarAbscisa(first, second, list);
 		return list;
 	}
 
+	// Función auxiliar
 	private static void ordenarAbscisa(Punto2DExtended[] first, Punto2DExtended[] second, Punto2DExtended[] result) {
-		// Merge both halves into the result array
-		// Next element to consider in the first array
 		int iFirst = 0;
-		// Next element to consider in the second array
 		int iSecond = 0;
-
-		// Next open position in the result
 		int j = 0;
-		// As long as neither iFirst nor iSecond is past the end, move the
-		// smaller element into the result.
+
 		while (iFirst < first.length && iSecond < second.length) {
 			if (first[iFirst].point.getX() < second[iSecond].point.getX()) {
 				result[j] = first[iFirst];
@@ -143,7 +211,7 @@ public class RankListPunto2D {
 			}
 			j++;
 		}
-		// copy what's left
+
 		System.arraycopy(first, iFirst, result, j, first.length - iFirst);
 		System.arraycopy(second, iSecond, result, j, second.length - iSecond);
 	}
@@ -173,9 +241,6 @@ public class RankListPunto2D {
 		pts[4] = new Punto2D(10, 1); // 0
 		pts[5] = new Punto2D(5, 4); // 2
 		pts[6] = new Punto2D(2, 3); // 0
-
-		// Para que cada punto mantenga la informaciÛn de su rango y grupo.
-		// TambiÈn su posociÛn original en points
 
 		RankListPunto2D rp = new RankListPunto2D();
 		int[] v = rp.compute(pts);
