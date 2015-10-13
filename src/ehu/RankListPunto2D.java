@@ -232,8 +232,9 @@ public class RankListPunto2D {
 	 * Tests
 	 */
 	public static void main(String[] args) {
-		Punto2D[] pts = new Punto2D[7];
-
+		int n = 100000;
+		Punto2D[] pts = new Punto2D[n];
+/*
 		pts[0] = new Punto2D(9, 9); // 5
 		pts[1] = new Punto2D(4, 2); // 0
 		pts[2] = new Punto2D(6, 8); // 3
@@ -241,11 +242,17 @@ public class RankListPunto2D {
 		pts[4] = new Punto2D(10, 1); // 0
 		pts[5] = new Punto2D(5, 4); // 2
 		pts[6] = new Punto2D(2, 3); // 0
+		*/
+		for(int i = 0; i<n; i++){
+			int num1 = (int)Math.floor(Math.random()*(1-100)+100);
+			int num2 = (int)Math.floor(Math.random()*(1-100)+100);
+			pts[i] = new Punto2D(num1, num2);
+		}
 
 		RankListPunto2D rp = new RankListPunto2D();
 		int[] v = rp.compute(pts);
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < n; i++) {
 			System.out.println(v[i]);
 		}
 	}

@@ -93,21 +93,5 @@ public class Robot {
 		pesoCubos += n;
 	}
 
-	/**
-	 * Tests
-	 */
-	public static void main(String[] args) {
-		LinkedList<Integer> lista = new LinkedList();
-		lista.add(14);
-		// lista.add(21);
-		// lista.add(-20);
-		// lista.add(13);
-		lista.add(0);
-
-		Iterator<Integer> cinta = lista.iterator();
-		Robot miRobot = new Robot();
-		while (cinta.hasNext()) {
-			miRobot.atiende(cinta.next());
-		}
-	}
+	
 }
