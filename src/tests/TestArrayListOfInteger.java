@@ -1,11 +1,13 @@
-package student;
+package tests;
 
 import javax.swing.JOptionPane;
+
+import hw2.ArrayListSortedOfInteger;
 
 public class TestArrayListOfInteger {
 	
 	public static void main(String[] args){
-		ArrayListSortedOfInteger lista = new ArrayListSortedOfInteger(Integer.parseInt(JOptionPane.showInputDialog("Introduce el tamaño del array")));
+		ArrayListSortedOfInteger lista = new ArrayListSortedOfInteger(Integer.parseInt(JOptionPane.showInputDialog("Introduce el tamaï¿½o del array")));
 		
 		lista.add(18);
 		lista.add(18);

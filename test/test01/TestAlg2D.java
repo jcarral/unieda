@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import student.Alg2D;
-import student.Tuple;
+import hw1.Alg2D;
+import hw1.Tuple;
 
 public class TestAlg2D {
 

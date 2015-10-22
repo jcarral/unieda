@@ -1,5 +1,5 @@
-package student;
- 
+package hw1;
+
 /**
  * Devuelve la posición del elemento x en la matriz dada.
  * Para buscar el elemento en la matriz se empieza recorriendo la diagonal hasta encontrar un elemento mayor que x.
@@ -17,7 +17,7 @@ public class Alg2D {
      * @param x Numero a buscar
      * @return Objeto de la clase tupla con las coordenadas del elemento x en caso de ser encontrado.
      */
-    public static student.Tuple<Integer, Integer> indexOf(int[][] data, int x) {
+    public static hw1.Tuple<Integer, Integer> indexOf(int[][] data, int x) {
     	
         return indexOf(new Tuple<Integer, Integer>(0,0), new Tuple<Integer, Integer>(data.length-1, data[0].length-1), data, x);
  
@@ -31,7 +31,7 @@ public class Alg2D {
      * @param e Elemento que se busca
      * @return Posicion del elemento que se busca si se ha encontrado, null si no
      */
-    private static student.Tuple<Integer, Integer> indexOf(Tuple<Integer, Integer> inicio, Tuple<Integer, Integer> fin, int[][] data, int e) {
+    private static hw1.Tuple<Integer, Integer> indexOf(Tuple<Integer, Integer> inicio, Tuple<Integer, Integer> fin, int[][] data, int e) {
 		int i = inicio._1() - 1, j = inicio._2() - 1;
 		int limiteX = fin._1() ;
 		int limiteY = fin._2();

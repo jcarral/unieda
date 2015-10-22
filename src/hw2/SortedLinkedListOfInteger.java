@@ -1,4 +1,4 @@
-package student;
+package hw2;
 
 //Tiempo empleado: 30minutos
 import java.util.Iterator;

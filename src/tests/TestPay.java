@@ -1,7 +1,10 @@
-package student;
+package tests;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import hw3.Contable;
+import hw3.Payment;
 
 public class TestPay {
 

@@ -1,6 +1,8 @@
-package student;
+package tests;
 
 import ehu.RankListPunto2D;
+import hw1.AlgPunto2D;
+import hw1.Punto2D;
 
 public class PruebasPuntos {
 

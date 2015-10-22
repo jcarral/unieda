@@ -1,7 +1,7 @@
 package test01;
 
-import student.AlgPunto2D;
-import student.Punto2D;
+import hw1.AlgPunto2D;
+import hw1.Punto2D;
 
 public class Test01_0_compute_y extends Test01_0_compute_abstract {
 	@Override

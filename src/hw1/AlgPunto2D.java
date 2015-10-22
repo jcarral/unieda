@@ -1,4 +1,4 @@
-package student;
+package hw1;
 
 import java.util.*;
 //Tiempo empleado: 20 minutos

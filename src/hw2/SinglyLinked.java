@@ -1,4 +1,4 @@
-package student;
+package hw2;
 
 public class SinglyLinked<T> {
 	static private class Node<T>{

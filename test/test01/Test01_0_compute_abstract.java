@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import student.AlgPunto2D;
-import student.Punto2D;
+import hw1.AlgPunto2D;
+import hw1.Punto2D;
 
 public abstract class Test01_0_compute_abstract {
 	AlgPunto2D alg;

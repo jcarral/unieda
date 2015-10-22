@@ -1,4 +1,4 @@
-package student;
+package hw3;
 
 import java.util.*;
 import java.io.*;

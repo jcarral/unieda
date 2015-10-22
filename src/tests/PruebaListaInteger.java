@@ -1,22 +1,33 @@
-package student;
+package tests;
 
-import javax.swing.JOptionPane;
+import hw2.SortedLinkedListOfInteger;
 
-public class TestArrayListInteger {
+public class PruebaListaInteger {
 	
 	public static void main(String[] args){
-		ArrayListSortedOfInteger lista = new ArrayListSortedOfInteger(Integer.parseInt(JOptionPane.showInputDialog("Introduce el tamaÒo del array")));
+		SortedLinkedListOfInteger lista = new SortedLinkedListOfInteger();
 		
 		lista.add(18);
+		printList(lista);
 		lista.add(18);
 		printList(lista);
 		lista.add(16);
+		printList(lista);
 		lista.add(34);
+		printList(lista);
+		lista.add(26);
+		printList(lista);
+		lista.add(-4);
+		printList(lista);
 		lista.add(25);
+		printList(lista);
 		lista.add(12);
+		printList(lista);
 		lista.add(1);
+		printList(lista);
 		lista.add(12);
-		printList(lista);
+		
+		
 		
 		lista.removeFirst();
 		printList(lista);
@@ -33,12 +44,14 @@ public class TestArrayListInteger {
 		printList(lista);
 		lista.removeLast();
 		printList(lista);
-		lista.removeLast();
-		printList(lista);
+		
 		
 	}
 	
-	private static void printList(ArrayListSortedOfInteger a){
-		System.out.println(a.toString());
+	private static void printList(SortedLinkedListOfInteger a){
+		for(int n : a){
+			System.out.print(n + ", ");
+		}
+		System.out.println(" ");
 	}
 }

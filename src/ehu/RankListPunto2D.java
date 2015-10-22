@@ -1,8 +1,6 @@
 package ehu;
 
-import java.util.*;
-
-import student.Punto2D;
+import hw1.Punto2D;
 
 /**
  * Tiempo utilizado: 2h
@@ -242,7 +240,7 @@ public class RankListPunto2D {
 		pts[4] = new Punto2D(10, 1); // 0
 		pts[5] = new Punto2D(5, 4); // 2
 		pts[6] = new Punto2D(2, 3); // 0
-		*/
+*/
 		for(int i = 0; i<n; i++){
 			int num1 = (int)Math.floor(Math.random()*(1-100)+100);
 			int num2 = (int)Math.floor(Math.random()*(1-100)+100);

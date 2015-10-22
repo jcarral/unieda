@@ -1,4 +1,4 @@
-package student;
+package hw1;
 
 public class Punto2D {
 	private double x;

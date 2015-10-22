@@ -1,4 +1,5 @@
-package student;
+package hw2;
+
 //Tiempo empleado: 1 hora
 public class ArrayListSortedOfInteger implements SortedList<Integer>{
 	
