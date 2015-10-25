@@ -1,4 +1,4 @@
-package student;
+package hw0;
 
 /*
  * Tiempo empleado: 45 minutos

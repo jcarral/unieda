@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import student.HW00_0;
+import hw0.HW00_0;
 
 public class Test00_freqs {
 	int[] array_empty = new int[] {};

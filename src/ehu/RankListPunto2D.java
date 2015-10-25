@@ -1,5 +1,8 @@
 package ehu;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import hw1.Punto2D;
 
 /**
@@ -22,6 +25,7 @@ public class RankListPunto2D {
 	 * @return Un nuevo array con el rango del punto i-esimo en la posiciÛn
 	 *         i-esima
 	 */
+	@SuppressWarnings("unchecked")
 	public int[] compute(Punto2D[] points) {
 		Punto2DExtended[] v = new Punto2DExtended[points.length];
 
@@ -29,7 +33,20 @@ public class RankListPunto2D {
 		// TambiÈn su posociÛn original en points
 		for (int i = 0; i < v.length; i++)
 			v[i] = new Punto2DExtended(points[i], i);
-		v = ordenarAbscisa(v);
+
+		Arrays.sort(v, new Comparator<Punto2DExtended>(){
+
+			public int compare(Punto2DExtended o1, Punto2DExtended o2) {
+				if(o1.point.getX()< o2.point.getX())
+					return -1;
+				else if(o1.point.getX() > o2.point.getX())
+					return 1;
+				else
+					return 0;
+						
+			}
+			
+		});
 
 		computeInternal(v, 0, v.length - 1);
 
@@ -166,52 +183,6 @@ public class RankListPunto2D {
 	private void copiarArray(Punto2DExtended[] points, Punto2DExtended[] aux, int from) {
 		for (int i = from, j = 0; j < aux.length; i++, j++)
 			points[i] = aux[j];
-	}
-
-	/**
-	 * Ordena el array de entrada según la abscisa usando un algoritmo mergesort
-	 * con coste O(nlogn)
-	 * 
-	 * @param list
-	 *            Array con todos los elementos de la lista
-	 * @return Devuelve una lista ordenada según la abscisa
-	 */
-	private static Punto2DExtended[] ordenarAbscisa(Punto2DExtended[] list) {
-		if (list.length <= 1) {
-			return list;
-		}
-
-		Punto2DExtended[] first = new Punto2DExtended[list.length / 2];
-		Punto2DExtended[] second = new Punto2DExtended[list.length - first.length];
-		System.arraycopy(list, 0, first, 0, first.length);
-		System.arraycopy(list, first.length, second, 0, second.length);
-
-		ordenarAbscisa(first);
-		ordenarAbscisa(second);
-
-		ordenarAbscisa(first, second, list);
-		return list;
-	}
-
-	// Función auxiliar
-	private static void ordenarAbscisa(Punto2DExtended[] first, Punto2DExtended[] second, Punto2DExtended[] result) {
-		int iFirst = 0;
-		int iSecond = 0;
-		int j = 0;
-
-		while (iFirst < first.length && iSecond < second.length) {
-			if (first[iFirst].point.getX() < second[iSecond].point.getX()) {
-				result[j] = first[iFirst];
-				iFirst++;
-			} else {
-				result[j] = second[iSecond];
-				iSecond++;
-			}
-			j++;
-		}
-
-		System.arraycopy(first, iFirst, result, j, first.length - iFirst);
-		System.arraycopy(second, iSecond, result, j, second.length - iSecond);
 	}
 
 	private static class Punto2DExtended {

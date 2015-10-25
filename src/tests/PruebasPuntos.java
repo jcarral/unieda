@@ -8,8 +8,8 @@ public class PruebasPuntos {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int n = 100000;
-		cuadratico(n);
+		int n = 10000000;
+		//cuadratico(n);
 		logaritmico(n);
 	}
 	
