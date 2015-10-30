@@ -1,4 +1,3 @@
-
 package student;
 
 import java.util.*;
@@ -11,38 +10,64 @@ public class BinaryTree {
 
 	public Node raiz;
 
+	/**
+	 * Función para imprimir todos los elementos de un arbol pòr niveles
+	 */
 	public void printByLevel() {
-
-		Queue<Node> currentLevel = new LinkedList<Node>();
-		Queue<Node> nextLevel = new LinkedList<Node>();
-
-		currentLevel.add(raiz);
-
-		while (!currentLevel.isEmpty()) {
-			Iterator<Node> iter = currentLevel.iterator();
-			while (iter.hasNext()) {
-				Node currentNode = iter.next();
-				if (currentNode.left != null) {
-					nextLevel.add(currentNode.left);
-				}
-				if (currentNode.right != null) {
-					nextLevel.add(currentNode.right);
-				}
-				System.out.print(currentNode.value + " ");
-			}
+		Queue<Node> cola = new LinkedList<Node>(); // FIFO con el nivel actual
+		Queue<Node> next; // FIFO cola con el siguiente nivel
+		if (raiz == null)
+			return;
+		cola.add(raiz);
+		do {
+			next = new LinkedList<Node>(); // Instancia nueva
+			printLevel(cola, next);
 			System.out.println();
-			currentLevel = nextLevel;
-			nextLevel = new LinkedList<Node>();
+			cola = next;
 
+		} while (!next.isEmpty());
+	}
+
+	/**
+	 * Función auxiliar para imprimir un nivel
+	 * 
+	 * @param cola
+	 *            Nivel actual que se va a imprimir
+	 * @param next
+	 *            Cola donde se guardan los nodos del proximo nivel
+	 */
+	private void printLevel(Queue<Node> cola, Queue<Node> next) {
+		Node actual;
+		while (!cola.isEmpty()) {
+			actual = cola.poll();
+			if (actual.left != null)
+				((LinkedList<Node>) next).addLast(actual.left);
+			if (actual.right != null)
+				((LinkedList<Node>) next).addLast(actual.right);
+			System.out.print(actual.value + " ");
 		}
 	}
 
+	/**
+	 * Función que introduce en una lista todos los elementos que son hojas de
+	 * un árbol
+	 * 
+	 * @return
+	 */
 	public List<Node> getLeafNodes() {
 		List<Node> list = new LinkedList<Node>();
 		getLeafNodes(raiz, list);
 		return list;
 	}
 
+	/**
+	 * Función auxiliar para buscar recursivamente hasta encontrar las hojas
+	 * 
+	 * @param ptr
+	 *            Nodo candidato a ser hoja
+	 * @param list
+	 *            Lista donde se irán guardando las hojas
+	 */
 	private void getLeafNodes(Node ptr, List<Node> list) {
 		if (ptr != null) {
 			getLeafNodes(ptr.left, list);
@@ -54,30 +79,62 @@ public class BinaryTree {
 		}
 	}
 
+	/**
+	 * Función para generar un árbol binario a partir de dos arrays
+	 * 
+	 * @param inorder
+	 *            Array con los elementos leidos de forma 'inorder'
+	 * @param preorder
+	 *            Array con los elementos leidos de forma 'preorder'
+	 * @return Un árbol binario
+	 */
 	public static BinaryTree build(int[] inorder, int[] preorder) {
 		BinaryTree bt = new BinaryTree();
-		bt.raiz = build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+		bt.raiz = build(preorder, 0, preorder.length - 1, inorder, 0,
+				inorder.length - 1);
 		return bt;
 	}
 
-	public static Node build(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
-		if (preStart > preEnd || inStart > inEnd) {
+	/**
+	 * Función auxiliar para crear el árbol de forma recursiva
+	 * 
+	 * @param preorder
+	 *            Array preorder
+	 * @param preFirst
+	 *            Indice desde donde empezar a buscar en el preorder
+	 * @param preLast
+	 *            Indice hasta donde buscar en el preorder
+	 * @param inorder
+	 *            Array inorder
+	 * @param inFirst
+	 *            Indice desde donde buscar en el inorder
+	 * @param inLast
+	 *            Indice hasta donde buscar en el inorder
+	 * @return Puntero a un nodo padre
+	 */
+	public static Node build(int[] preorder, int preFirst, int preLast,
+			int[] inorder, int inFirst, int inLast) {
+		if (preFirst > preLast || inFirst > inLast) {
 			return null;
 		}
 
-		int v = preorder[preStart];
+		int v = preorder[preFirst]; // Nodo padre
 		Node p = new Node(null, v, null);
 
 		int pos = 0;
-		for (int i = 0; i < inorder.length; i++) {
+		for (int i = 0; i < inorder.length; i++) { // Busca el padre en el
+													// inorder
 			if (v == inorder[i]) {
 				pos = i;
 				break;
 			}
 		}
 
-		p.left = build(preorder, preStart + 1, preStart + (pos - inStart), inorder, inStart, pos - 1);
-		p.right = build(preorder, preStart + (pos - inStart) + 1, preEnd, inorder, pos + 1, inEnd);
+		// Llamadas recursivas
+		p.left = build(preorder, preFirst + 1, preFirst + (pos - inFirst),
+				inorder, inFirst, pos - 1);
+		p.right = build(preorder, preFirst + (pos - inFirst) + 1, preLast,
+				inorder, pos + 1, inLast);
 
 		return p;
 	}
@@ -94,31 +151,25 @@ public class BinaryTree {
 
 		}
 	}
-	
-	
-	
-	public static void main(String args[]){
-		
-		int [] aInorder = {10, 12, 20, 30, 37, 40, 45};
-		int [] aPreorder = {30, 20, 10, 12, 40, 37, 45};
-		
-		/*Salida:
-		* 30
-		* 20 40
-		* 10 37 45
-		* 12
-		*/
+
+	public static void main(String args[]) {
+
+		int[] aInorder = {  };
+		int[] aPreorder = {  };
+
+		/*
+		 * Salida: 30 20 40 10 37 45 12
+		 */
 		BinaryTree tree = build(aInorder, aPreorder);
 		tree.printByLevel();
 		List<Node> list = new LinkedList();
 		tree.getLeafNodes(tree.raiz, list);
-		
+
 		System.out.print("\nHojas: ");
-		for(int i=0;i<list.size();i++){
-		    System.out.print(list.get(i).value + " ");
+		for (int i = 0; i < list.size(); i++) {
+			System.out.print(list.get(i).value + " ");
 		}
-		
-		
+
 	}
 
 }
