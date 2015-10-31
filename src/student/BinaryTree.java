@@ -108,6 +108,7 @@ public class BinaryTree {
 		* 10 37 45
 		* 12
 		*/
+		
 		BinaryTree tree = build(aInorder, aPreorder);
 		tree.printByLevel();
 		List<Node> list = new LinkedList();
