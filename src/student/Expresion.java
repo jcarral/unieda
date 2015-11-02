@@ -1,35 +1,44 @@
 package student;
-
+/*
+ * Tiempo empleado: 45minutos
+ */
 public class Expresion {
 
 	// Constantes
 	private static final int NUMERO = 0, OPERADOR = 1, NOMBRE = 2;
-	Node raiz; // Nodo raiz
+	private int tipo;
+	private int numero;
+	private String nombre;
+	private String op;
+	private Expresion left;
+	private Expresion right;
 
 	/**
-	 * Construye un nuevo árbol que representa la expresion formada por el
+	 * Construye un nuevo ï¿½rbol que representa la expresion formada por el
 	 * entero v
 	 * 
 	 * @param v
 	 *            Entero que forma la expresion
 	 */
 	public Expresion(int v) {
-		raiz = new Node(v);
+		tipo = NUMERO;
+		numero = v;
 	}
 
 	/**
-	 * Construye un nuevo árbol que representa la expresion formada por el
+	 * Construye un nuevo ï¿½rbol que representa la expresion formada por el
 	 * String name
 	 * 
 	 * @param name
-	 *            String que forma la expresión
+	 *            String que forma la expresiï¿½n
 	 */
 	public Expresion(String name) {
-		raiz = new Node(name);
+		tipo = NOMBRE;
+		nombre = name;
 	}
 
 	/**
-	 * Construye un nuevo árbol que representa la expresion formada por el
+	 * Construye un nuevo ï¿½rbol que representa la expresion formada por el
 	 * operador y otras dos expresiones
 	 * 
 	 * @param opr
@@ -40,42 +49,42 @@ public class Expresion {
 	 *            Rama derecha
 	 */
 	public Expresion(String opr, Expresion left, Expresion right) {
-		raiz = new Node(opr, left.raiz, right.raiz);
+		tipo = OPERADOR;
+		op = opr;
+		this.left = left;
+		this.right = right;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
-		return toString(raiz);
+		return toString(this);
 	}
 
 	/**
-	 * Función auxiliar que imprime el arbol en inorder
+	 * FunciÃ³n auxiliar que imprime el arbol en inorder
 	 * 
 	 * @param node
 	 * @return devuelve un String con los nodos
 	 */
-	private String toString(Node node) {
+	private String toString(Expresion node) {
 		if (node == null)
 			return "";
 
 		String s = toString(node.left);
 		s += getData(node) + " ";
 		s += toString(node.right);
+		if(node.left != null && node.left.tipo == NUMERO)
+			s = "(" + s + ")";
 		return s;
 	}
 
 	/**
-	 * Función auxiliar para sacar el dato del nodo
+	 * Funciï¿½n auxiliar para sacar el dato del nodo
 	 * 
 	 * @param ptr
 	 *            Nodo del que se saca el dato
 	 * @return Un String con el dato
 	 */
-	private String getData(Node ptr) {
+	private String getData(Expresion ptr) {
 		switch (ptr.tipo) {
 		case NUMERO:
 			return Integer.toString(ptr.numero);
@@ -89,24 +98,24 @@ public class Expresion {
 	}
 
 	/**
-	 * Función que devuelve si hay algún nodo del tipo nombre
+	 * Funciï¿½n que devuelve si hay algï¿½n nodo del tipo nombre
 	 * 
 	 * @return Devuelve true si no hay nodos del tipo nombre
 	 */
 	public boolean isClosed() {
-		if (raiz == null)
+		if (this == null)
 			return false;
-		return isClosed(raiz);
+		return isClosed(this);
 	}
 
 	/**
-	 * Función auxiliar para recorrer recursivamente el árbol
+	 * FunciÃ³n auxiliar para recorrer recursivamente el Ã¡rbol
 	 * 
 	 * @param ptr
 	 *            Nodo del arbol
 	 * @return Devuelve true si no hay nodos del tipo nombre
 	 */
-	private boolean isClosed(Node ptr) {
+	private boolean isClosed(Expresion ptr) {
 		if (ptr == null)
 			return true;
 		if (ptr.tipo == NOMBRE)
@@ -119,7 +128,7 @@ public class Expresion {
 	}
 
 	/**
-	 * Se sustituyen en la expresión todas las apariciones del nombre indicado
+	 * Se sustituyen en la expresiï¿½n todas las apariciones del nombre indicado
 	 * por el valor inidicado
 	 * 
 	 * @param name
@@ -128,11 +137,11 @@ public class Expresion {
 	 *            nuevo valor del nodo
 	 */
 	public void substitute(String name, int v) {
-		substitute(name, v, raiz);
+		substitute(name, v, this);
 	}
 
 	/**
-	 * Función auxiliar para recorrer recursivamente el árbol
+	 * FunciÃ³n auxiliar para recorrer recursivamente el Ã¡rbol
 	 * 
 	 * @param name
 	 *            nombre a sustituir
@@ -141,7 +150,7 @@ public class Expresion {
 	 * @param ptr
 	 *            Nodo que se verifica
 	 */
-	private void substitute(String name, int v, Node ptr) {
+	private void substitute(String name, int v, Expresion ptr) {
 		if (ptr == null)
 			return;
 		if (ptr.tipo == NOMBRE && ptr.nombre.equals(name)) {
@@ -153,21 +162,21 @@ public class Expresion {
 	}
 
 	/**
-	 * Función para obtener el valor del camino más largo
+	 * Funciï¿½n para obtener el valor del camino mï¿½s largo
 	 * 
-	 * @return valor del recorrido más largo
+	 * @return valor del recorrido mï¿½s largo
 	 */
 	public int longestPath() {
-		return longestPath(raiz);
+		return longestPath(this);
 	}
 
 	/**
-	 * Función auxiliar
+	 * FunciÃ³n auxiliar
 	 * 
 	 * @param ptr
 	 * @return
 	 */
-	private int longestPath(Node ptr) {
+	private int longestPath(Expresion ptr) {
 		if (ptr == null)
 			return -1;
 		int iz = longestPath(ptr.left) + 1;
@@ -176,7 +185,7 @@ public class Expresion {
 	}
 
 	/**
-	 * Función que devuelve si el arbol actual es ismorfico respecto al que se
+	 * Funciï¿½n que devuelve si el arbol actual es ismorfico respecto al que se
 	 * pasa por parametro
 	 * 
 	 * @param t
@@ -184,50 +193,47 @@ public class Expresion {
 	 * @return devuelve true si son isomorficos
 	 */
 	public boolean isIsomorphicTo(Expresion t) {
-		return isIsomorphicTo(this.raiz, t.raiz);
+		return isIsomorphicTo(this, t);
 	}
 
-	/**
-	 * Función auxiliar
-	 */
-	public boolean isIsomorphicTo(Node t1, Node t2) {
+	public boolean isIsomorphicTo(Expresion t1, Expresion t2) {
 		if (t1 == null && t2 == null)
 			return true;
 		if (t1 == null || t2 == null)
 			return false;
-		return (isIsomorphicTo(t1.left, t2.right) && isIsomorphicTo(t1.right,
-				t2.left))
-				|| (isIsomorphicTo(t1.left, t2.left) && isIsomorphicTo(
-						t1.right, t2.right));
+		return (isIsomorphicTo(t1.left, t2.right) && isIsomorphicTo(t1.right, t2.left))
+				|| (isIsomorphicTo(t1.left, t2.left) && isIsomorphicTo(t1.right, t2.right));
 	}
-
-	class Node {
-		private int tipo;
-		private int numero;
-		private String nombre;
-		private String op;
-		private Node left;
-		private Node right;
-
-		Node(int val) {
-			tipo = NUMERO;
-			numero = val;
-		}
-
-		Node(String s) {
-			tipo = NOMBRE;
-			nombre = s;
-		}
-
-		Node(String op, Node left, Node right) {
-			tipo = OPERADOR;
-			this.op = op;
-			this.left = left;
-			this.right = right;
-		}
-
+	
+	/**
+	 * Calcula el resultado de la expresiÃ³n
+	 * @return Devuelve el resultado de la expresiÃ³n del Ã¡rbol
+	 */
+	public int calcular(){
+		if(!isClosed()) 
+			return -1;
+		if(tipo == NUMERO)
+			return numero;
+		else
+			return operar(left.calcular(), op, right.calcular());	
 	}
-
+	
+	private static int operar(int izq, String op, int dcha){
+		switch(op){
+			case "*":
+				return izq * dcha;
+			case "+":
+				return izq + dcha;
+			case "-":
+				return izq - dcha;
+			case "/":
+				return izq / dcha;
+			case "%":
+				return izq % dcha;
+			default:
+				return 0;
+		}
+	}
 	public static void main(String args[]) {
 		Expresion n1 = new Expresion(3);
 		Expresion n2 = new Expresion("a");
@@ -236,9 +242,12 @@ public class Expresion {
 		System.out.println(e2.toString());
 		System.out.println(e2.isClosed());
 		e2.substitute("a", 288);
+		System.out.println(e2.isClosed());
+		System.out.println(e2.calcular());
 		System.out.println(e2.toString());
 		System.out.println(e2.longestPath());
 		Expresion e3 = new Expresion("-", new Expresion(123), e2);
+		System.out.println(e3.calcular());
 		System.out.println(e3.longestPath());
 		System.out.println(e3.toString());
 		System.out.println(e3.isIsomorphicTo(e2));
