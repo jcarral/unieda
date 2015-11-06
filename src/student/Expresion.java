@@ -1,6 +1,6 @@
 package student;
 /*
- * Tiempo empleado: 45minutos
+ * Tiempo empleado: 30minutos
  */
 public class Expresion {
 
@@ -196,7 +196,7 @@ public class Expresion {
 		return isIsomorphicTo(this, t);
 	}
 
-	public boolean isIsomorphicTo(Expresion t1, Expresion t2) {
+	public static boolean isIsomorphicTo(Expresion t1, Expresion t2) {
 		if (t1 == null && t2 == null)
 			return true;
 		if (t1 == null || t2 == null)
@@ -210,8 +210,6 @@ public class Expresion {
 	 * @return Devuelve el resultado de la expresión del árbol
 	 */
 	public int calcular(){
-		if(!isClosed()) 
-			return -1;
 		if(tipo == NUMERO)
 			return numero;
 		else
@@ -247,7 +245,7 @@ public class Expresion {
 		System.out.println(e2.toString());
 		System.out.println(e2.longestPath());
 		Expresion e3 = new Expresion("-", new Expresion(123), e2);
-		System.out.println(e3.calcular());
+		System.out.println("Calcular: " +  e3.calcular());
 		System.out.println(e3.longestPath());
 		System.out.println(e3.toString());
 		System.out.println(e3.isIsomorphicTo(e2));
