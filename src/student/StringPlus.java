@@ -52,29 +52,29 @@ public class StringPlus {
 	public boolean isPrefix(StringPlus s) {
 		if (size > s.size())
 			return false;
-		return iguales(this, s);
+		return isPrefix(this, s);
 	}
 
-	private boolean iguales(StringPlus t1, StringPlus t2) {
+	private boolean isPrefix(StringPlus t1, StringPlus t2) {
 
 		LinkedList<StringPlus> pilaPrefix = new LinkedList<StringPlus>();
 		LinkedList<StringPlus> pilaCadena = new LinkedList<StringPlus>();
 		StringPlus auxPrefix = t1, auxCadena = t2;
-		String prefix = obtenerPrimeraCadena(auxPrefix, pilaPrefix),
-				cadena = obtenerPrimeraCadena(auxCadena, pilaCadena);
+		String prefix = obtenerSiguienteCadena(auxPrefix, pilaPrefix),
+				cadena = obtenerSiguienteCadena(auxCadena, pilaCadena);
 		int i = -1, j = 0;
 
-		while (!pilaPrefix.isEmpty() || (i < prefix.length() && i>0)) {
+		while (!pilaPrefix.isEmpty() || (i < prefix.length() && i > 0)) {
 			if (i == prefix.length()) {
 				auxPrefix = pilaPrefix.pop();
-				prefix = obtenerPrimeraCadena(auxPrefix, pilaPrefix);
+				prefix = obtenerSiguienteCadena(auxPrefix, pilaPrefix);
 				i = 0;
-			}else if(i <0){
+			} else if (i < 0) {
 				i = 0;
 			}
 			if (j == cadena.length()) {
 				auxCadena = pilaCadena.pop();
-				cadena = obtenerPrimeraCadena(auxCadena, pilaCadena);
+				cadena = obtenerSiguienteCadena(auxCadena, pilaCadena);
 				j = 0;
 			}
 
@@ -88,7 +88,16 @@ public class StringPlus {
 		return true;
 	}
 
-	private String obtenerPrimeraCadena(StringPlus s, LinkedList<StringPlus> list) {
+	/**
+	 * Devuelve el siguiente string del arbol y actualiza la pila
+	 * 
+	 * @param s
+	 *            Nodo del arbol en el que se busca el String
+	 * @param list
+	 *            Lista con todos los nodos de ese arbol
+	 * @return El primer String en inorder
+	 */
+	private String obtenerSiguienteCadena(StringPlus s, LinkedList<StringPlus> list) {
 		StringPlus aux = s;
 		while (aux.txt == null) {
 			list.push(aux.right);
@@ -108,55 +117,66 @@ public class StringPlus {
 	 */
 	public StringPlus substring(int beginIndex, int endIndex) throws IndexOutOfBoundsException {
 		if (beginIndex < 0 || endIndex > this.size() || beginIndex > endIndex)
-			throw new IndexOutOfBoundsException();
-		
-		//Variables
-		int auxIndice = 0, aux, size = (endIndex-beginIndex);
+			throw new IndexOutOfBoundsException("Te has pasado de los limites");
+
+		int auxIndice = 0, aux, size = (endIndex - beginIndex);
 		LinkedList<StringPlus> pila = new LinkedList<StringPlus>();
 		LinkedList<String> pilaSubstring = new LinkedList<String>();
 		String actual;
 		StringPlus auxNodo;
 		pila.push(this);
-		do{
+
+		do {
 			auxNodo = pila.pop();
-			actual = obtenerPrimeraCadena(auxNodo, pila);
-			
-			if(auxIndice < beginIndex && beginIndex>actual.length()){
+			actual = obtenerSiguienteCadena(auxNodo, pila);
+			if (auxIndice < beginIndex && beginIndex >= actual.length()) {
+				aux = beginIndex - auxIndice;
 				auxIndice += actual.length();
-			}else if (auxIndice <= beginIndex){
+				// Si el substring esta dentro de la misma hoja
+				if (auxIndice >= beginIndex && aux + size <= actual.length())
+					pilaSubstring.push(actual.substring(aux, aux + size));
+			}
+
+			else if (auxIndice <= beginIndex) {
 				aux = beginIndex - auxIndice;
 				auxIndice = beginIndex;
-				
-				if(actual.length()>size+1){
-					pilaSubstring.push(actual.substring(aux, aux+size+1));
+				if (actual.length() > size) {
+					pilaSubstring.push(actual.substring(aux, aux + size));
 					break;
-				}else{
+				} else {
 					pilaSubstring.push(actual.substring(aux, actual.length()));
 					size -= actual.length();
 				}
-				
+
 			}
-			
-		}while(!pila.isEmpty());
+
+		} while (!pila.isEmpty() && size > 0);
 		return montarArbol(pilaSubstring);
 	}
-	
-	private StringPlus montarArbol(LinkedList<String> lista){
+
+	/**
+	 * Genera un arbol StringPlus con los elementos de la pila
+	 * 
+	 * @param lista
+	 *            con los elementos que formaran el arbol
+	 * @return StringPlus nuevo
+	 */
+	private StringPlus montarArbol(LinkedList<String> lista) {
 		String aux;
-		if(lista.size()==0)
-			return new StringPlus("Error");
-		else if(lista.size() == 1)
+		StringPlus arbol;
+		if (lista.size() == 1)
 			return new StringPlus(lista.pop());
-		
 		LinkedList<StringPlus> nodos = new LinkedList<StringPlus>();
 		aux = lista.pop();
-		nodos.push(new StringPlus(lista.pop()).concat(new StringPlus(aux))); //Crea el primer arbol con los dos primeros elementos
-		while(!lista.isEmpty()){
-			nodos.push(new StringPlus(lista.pop()).concat(nodos.pop()));
+		// Crea el primer arbol con los dos primeros elementos
+		arbol = new StringPlus(lista.pop()).concat(new StringPlus(aux));
+		while (!lista.isEmpty()) {
+			nodos.push(new StringPlus(lista.pop()).concat(arbol));
 		}
-		
-		return nodos.pop();
+
+		return arbol;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -170,6 +190,11 @@ public class StringPlus {
 
 	}
 
+	/**
+	 * Funcion auxiliar que devuelve un objeto del tipo StringBuilder con el resultado
+	 * @param t Arbol que se intenta convertir a String
+	 * @return Objeto tipo StringBuilder con el valor del arbol
+	 */
 	private StringBuilder toString(StringPlus t) {
 		if (t.txt != null)
 			return new StringBuilder(t.txt);
@@ -179,7 +204,7 @@ public class StringPlus {
 	}
 
 	public static void main(String[] args) {
-		StringPlus s1 = new StringPlus("fra").concat(new StringPlus("s"));
+		StringPlus s1 = new StringPlus("fra ").concat(new StringPlus("se e"));
 
 		StringPlus s2 = new StringPlus("a ").concat(new StringPlus("escribir"));
 		StringPlus s3 = new StringPlus("ase ").concat(s2);
@@ -188,8 +213,8 @@ public class StringPlus {
 		System.out.println(s1.toString());
 		System.out.println(s4.toString());
 		System.out.println(s1.isPrefix(s4));
-		
-		System.out.println(s4.substring(3, 11).toString());
+
+		System.out.println(s4.substring(1, 1).toString());
 
 	}
 }
