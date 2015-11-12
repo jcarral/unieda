@@ -4,7 +4,7 @@ package student;
  */
 public class Expresion {
 
-	// Constantes
+	//Constantes
 	private static final int NUMERO = 0, OPERADOR = 1, NOMBRE = 2;
 	private int tipo;
 	private int numero;
