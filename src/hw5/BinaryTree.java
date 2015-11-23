@@ -1,6 +1,8 @@
-package student;
+package hw5;
 
 import java.util.*;
+
+import hw5.BinaryTree.Node;
 
 /**
  * Tiempo empleado: 45mins
@@ -69,14 +71,11 @@ public class BinaryTree {
 	 *            Lista donde se ir�n guardando las hojas
 	 */
 	private void getLeafNodes(Node ptr, List<Node> list) {
-		if (ptr != null) {
-			getLeafNodes(ptr.left, list);
-			getLeafNodes(ptr.right, list);
-
-			if (ptr.left == null && ptr.right == null) {
-				list.add(ptr);
-			}
-		}
+		if(ptr == null) return;
+		if(ptr.left == null && ptr.right == null)
+			list.add(ptr);
+		getLeafNodes(ptr.left, list);
+		getLeafNodes(ptr.right, list);
 	}
 
 	/**
@@ -143,6 +142,7 @@ public class BinaryTree {
 		public int value;
 		public Node left;
 		public Node right;
+		public Node parent;
 
 		public Node(Node left, int value, Node right) {
 			this.value = value;
@@ -151,21 +151,19 @@ public class BinaryTree {
 
 		}
 	}
+	
+	
 
 	public static void main(String args[]) {
 
-		int[] aInorder = {  };
-		int[] aPreorder = {  };
+		int[] aInorder = {4,2,5,1,6,3};
+		int[] aPreorder = {1,2,4,5,3,6};
 
-		/*
-		 * Salida: 30 20 40 10 37 45 12
-		 */
 
 		BinaryTree tree = build(aInorder, aPreorder);
 		tree.printByLevel();
 		List<Node> list = new LinkedList();
 		tree.getLeafNodes(tree.raiz, list);
-
 		System.out.print("\nHojas: ");
 		for (int i = 0; i < list.size(); i++) {
 			System.out.print(list.get(i).value + " ");

@@ -1,4 +1,4 @@
-package student;
+package hw6;
 /*
  * Tiempo empleado: 30minutos
  */
@@ -232,22 +232,5 @@ public class Expresion {
 				return 0;
 		}
 	}
-	public static void main(String args[]) {
-		Expresion n1 = new Expresion(3);
-		Expresion n2 = new Expresion("a");
-		Expresion e1 = new Expresion("+", n1, n2);
-		Expresion e2 = new Expresion("*", new Expresion(8), e1);
-		System.out.println(e2.toString());
-		System.out.println(e2.isClosed());
-		e2.substitute("a", 288);
-		System.out.println(e2.isClosed());
-		System.out.println(e2.calcular());
-		System.out.println(e2.toString());
-		System.out.println(e2.longestPath());
-		Expresion e3 = new Expresion("-", new Expresion(123), e2);
-		System.out.println("Calcular: " +  e3.calcular());
-		System.out.println(e3.longestPath());
-		System.out.println(e3.toString());
-		System.out.println(e3.isIsomorphicTo(e2));
-	}
+	
 }

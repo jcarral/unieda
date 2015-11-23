@@ -1,4 +1,4 @@
-package student;
+package hw6;
 
 import java.util.*;
 
@@ -82,7 +82,7 @@ public class StringPlus {
 				if (prefix.charAt(i) != cadena.charAt(j))
 					return false;
 			}
-
+			
 		}
 
 		return true;
@@ -149,7 +149,7 @@ public class StringPlus {
 				}
 
 			}
-
+		
 		} while (!pila.isEmpty() && size > 0);
 		return montarArbol(pilaSubstring);
 	}
@@ -162,6 +162,7 @@ public class StringPlus {
 	 * @return StringPlus nuevo
 	 */
 	private StringPlus montarArbol(LinkedList<String> lista) {
+		
 		String aux;
 		StringPlus arbol;
 		if (lista.size() == 1)
@@ -171,7 +172,7 @@ public class StringPlus {
 		// Crea el primer arbol con los dos primeros elementos
 		arbol = new StringPlus(lista.pop()).concat(new StringPlus(aux));
 		while (!lista.isEmpty()) {
-			nodos.push(new StringPlus(lista.pop()).concat(arbol));
+			arbol = new StringPlus(lista.pop()).concat(arbol);
 		}
 
 		return arbol;
@@ -203,18 +204,5 @@ public class StringPlus {
 		return sb;
 	}
 
-	public static void main(String[] args) {
-		StringPlus s1 = new StringPlus("fra ").concat(new StringPlus("se e"));
 
-		StringPlus s2 = new StringPlus("a ").concat(new StringPlus("escribir"));
-		StringPlus s3 = new StringPlus("ase ").concat(s2);
-		StringPlus s4 = new StringPlus("fr").concat(s3);
-
-		System.out.println(s1.toString());
-		System.out.println(s4.toString());
-		System.out.println(s1.isPrefix(s4));
-
-		System.out.println(s4.substring(1, 1).toString());
-
-	}
 }
