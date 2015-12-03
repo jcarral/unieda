@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MazeSolver {
-    public static int MARCADA = 1, LIBRE = 2, BLOQUEADA = 3; // Constantes
+    public static final int MARCADA = 1, LIBRE = 2, BLOQUEADA = 3; // Constantes
     private static Coords[][] laberinto;
 
     public MazeSolver(boolean[][] maze) {
