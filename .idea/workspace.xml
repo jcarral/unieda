@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0c17ea84-9235-495a-95cf-f615bf2bd4af" name="Default" comment="Interfaz gráfica para sudoku creada">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/student/AptGet.java" />
+    <list default="true" id="0c17ea84-9235-495a-95cf-f615bf2bd4af" name="Default" comment="Colorear tablero &amp; apt-get">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student/Sudoku.java" afterPath="$PROJECT_DIR$/src/student/Sudoku.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student/SudokuFrame.java" afterPath="$PROJECT_DIR$/src/student/SudokuFrame.java" />
     </list>
     <ignored path="Universidad.iws" />
@@ -32,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/src/student/Sudoku.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+              <caret line="141" column="39" selection-start-line="137" selection-start-column="8" selection-end-line="141" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -41,24 +39,12 @@
       <file leaf-file-name="SudokuFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/student/SudokuFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53125">
-              <caret line="234" column="45" selection-start-line="234" selection-start-column="45" selection-end-line="234" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.4642857">
+              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7720#7721#0" expanded="true" />
-                <element signature="e#7769#7770#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MazeSolver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/student/MazeSolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#7922#7923#0" expanded="true" />
+                <element signature="e#7971#7972#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -687,7 +673,7 @@
       <updated>1449171174019</updated>
       <workItem from="1449171180278" duration="1108000" />
       <workItem from="1449172398263" duration="8444000" />
-      <workItem from="1449216487873" duration="4737000" />
+      <workItem from="1449216487873" duration="7117000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Sudoku añadido&quot;">
       <created>1449175241120</created>
@@ -707,11 +693,17 @@
       <option name="project" value="LOCAL" />
       <updated>1449182607693</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Colorear tablero &amp; apt-get">
+      <created>1449221726928</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1449221726928</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14289000" />
+    <option name="totallyTimeSpent" value="16669000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -758,7 +750,8 @@
     <MESSAGE value="&quot;Sudoku añadido&quot;" />
     <MESSAGE value="Variable declarada final&#10;" />
     <MESSAGE value="Interfaz gráfica para sudoku creada" />
-    <option name="LAST_COMMIT_MESSAGE" value="Interfaz gráfica para sudoku creada" />
+    <MESSAGE value="Colorear tablero &amp; apt-get" />
+    <option name="LAST_COMMIT_MESSAGE" value="Colorear tablero &amp; apt-get" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -786,8 +779,8 @@
           <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7720#7721#0" expanded="true" />
-            <element signature="e#7769#7770#0" expanded="true" />
+            <element signature="e#7922#7923#0" expanded="true" />
+            <element signature="e#7971#7972#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -832,14 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/student/Sudoku.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.classpath">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -861,34 +846,44 @@
         <state vertical-scroll-proportion="0.46478873">
           <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
           <folding>
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
-            <element signature="e#292#293#0" expanded="true" />
-            <element signature="e#319#320#0" expanded="true" />
-            <element signature="e#370#371#0" expanded="true" />
-            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#213#214#0" expanded="true" />
+            <element signature="e#240#241#0" expanded="true" />
+            <element signature="e#295#296#0" expanded="true" />
+            <element signature="e#322#323#0" expanded="true" />
+            <element signature="e#374#375#0" expanded="true" />
+            <element signature="e#401#402#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/student/Sudoku.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="141" column="39" selection-start-line="137" selection-start-column="8" selection-end-line="141" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/student/MazeSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.39732143">
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#299#300#0" expanded="true" />
+            <element signature="e#329#330#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/student/SudokuFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53125">
-          <caret line="234" column="45" selection-start-line="234" selection-start-column="45" selection-end-line="234" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.4642857">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7720#7721#0" expanded="true" />
-            <element signature="e#7769#7770#0" expanded="true" />
+            <element signature="e#7922#7923#0" expanded="true" />
+            <element signature="e#7971#7972#0" expanded="true" />
           </folding>
         </state>
       </provider>

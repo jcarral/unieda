@@ -59,39 +59,32 @@ public class SudokuFrame extends JFrame {
         }
 
 
-        btnCalcular.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnCalcular.addActionListener(e -> {
 
-                Sudoku s1 = new Sudoku();
-                int[][] tablero = getTablero();
-                if (!esValido(tablero))
-                    JOptionPane.showMessageDialog(null, "Tablero no valido");
-                else {
-                    tablero = s1.resolverSudoku(getTablero());
-                    setTablero(tablero);
-                }
-
-
+            Sudoku s1 = new Sudoku();
+            int[][] tablero = getTablero();
+            if (!esValido(tablero))
+                JOptionPane.showMessageDialog(null, "Tablero no valido");
+            else {
+                tablero = s1.resolverSudoku(getTablero());
+                setTablero(tablero);
             }
+
+
         });
 
-        btnClear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnClear.addActionListener(e -> {
+
                 for (int i = 0; i < filas; i++) {
                     for (int j = 0; j < columnas; j++) {
                         subPanels[i][j].setText("");
                     }
                 }
-            }
+
         });
 
-        btnCrear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Ya si eso mañana lo meto
-            }
+        btnCrear.addActionListener(e -> {
+            //Ya si eso mañana lo meto
         });
 
         final JPanel ButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -209,12 +202,14 @@ public class SudokuFrame extends JFrame {
                 original = subPanels[r][c].getBackground();
                 colorearFila(c, Color.YELLOW);
                 colorearColumna(r, Color.YELLOW);
+                colorearCuadro(r, c, Color.YELLOW);
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 colorearFila(c, null);
                 colorearColumna(r, null);
+                colorearCuadro(r, c, null);
             }
         });
 
@@ -235,6 +230,19 @@ public class SudokuFrame extends JFrame {
             if (limpiar)
                 color = getColorOriginal(r, i);
             subPanels[r][i].setBackground(color);
+        }
+    }
+
+    private void colorearCuadro(int r, int c, Color color) {
+        int i = r - (r % 3);
+        int j = c - (c % 3);
+        if (color == null)
+            color = getColorOriginal(r, c);
+
+        for (int k = i; k < i + 3; k++) {
+            for (int z = j; z < j + 3; z++) {
+                subPanels[k][z].setBackground(color);
+            }
         }
     }
 
