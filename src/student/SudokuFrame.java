@@ -132,7 +132,7 @@ public class SudokuFrame extends JFrame {
     }
 
     private boolean esValido(int[][] tablero) {
-        boolean valido;
+
         //Comprobar fila
         for (int i = 0; i < columnas; i++) {
             if (!comprobarFila(tablero[i]))
