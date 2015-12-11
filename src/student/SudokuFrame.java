@@ -2,6 +2,8 @@ package student;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +55,7 @@ public class SudokuFrame extends JFrame {
                 else
                     subPanels[r][c].setBackground(Color.WHITE);
                 colorear(r, c);
+                foo(r, c);
                 GuiPanel.add(subPanels[r][c]);
 
             }
@@ -78,13 +81,15 @@ public class SudokuFrame extends JFrame {
                 for (int i = 0; i < filas; i++) {
                     for (int j = 0; j < columnas; j++) {
                         subPanels[i][j].setText("");
+                        subPanels[i][j].setEditable(true);
+                        subPanels[i][j].setForeground(Color.blue);
                     }
                 }
 
         });
 
         btnCrear.addActionListener(e -> {
-            //Ya si eso mañana lo meto
+            setTablero(crearPartida());
         });
 
         final JPanel ButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -96,11 +101,49 @@ public class SudokuFrame extends JFrame {
         setVisible(true);
     }
 
+    private int[][] crearPartida(){
+       int[][] tablero = new int[filas][columnas];
+
+        int num_elementos = (int) Math.floor(Math.random()*30)+1; //Entre 1 y 30
+
+        for(int i = 0; i<num_elementos; i++){
+            insertar_en_tablero(tablero);
+        }
+        return tablero;
+    }
+
+    private void insertar_en_tablero(int[][] tablero){
+
+        int num, x, y;
+        while(true){
+            num = (int) Math.floor(Math.random()*8)+1;
+            x = (int) Math.floor(Math.random()*8);
+            y = (int) Math.floor(Math.random()*8);
+
+            tablero[x][y] = num;
+
+                if(posicionValida(tablero, x, y))
+                    break;
+                else
+                    tablero[x][y] = 0;
+        }
+
+    }
+
+    private boolean posicionValida(int[][] tablero, int x, int y){
+        return comprobarFila(tablero[x]) && comprobarColumna(tablero, y) && comprobarCuadrado(tablero, (x-(x%3)),(y-(y%3)));
+    }
 
     private void setTablero(int[][] tablero) {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                subPanels[i][j].setText(Integer.toString(tablero[i][j]));
+                if(tablero[i][j] != 0) {
+                    subPanels[i][j].setText(Integer.toString(tablero[i][j]));
+                    subPanels[i][j].setEditable(false);
+                    subPanels[i][j].setForeground(Color.black);
+                }
+                else
+                    subPanels[i][j].setText("");
             }
         }
     }
@@ -181,18 +224,58 @@ public class SudokuFrame extends JFrame {
 
     private boolean comprobarCuadrado(int[][] tablero, int x, int y) {
         int[] newLinea = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-        for (int i = x; i < x + 3; i++) {
-            for (int j = y; j < y + 3; j++) {
-                if (tablero[i][j] != 0)
-                    if (newLinea[tablero[i][j] - 1] != 0)
-                        return false;
-                    else
-                        newLinea[tablero[i][j] - 1] = tablero[i][j];
+        int i=0, j=0;
+
+            for (i = x; i < x + 3; i++) {
+                for (j = y; j < y + 3; j++) {
+                    if (tablero[i][j] != 0)
+                        if (newLinea[tablero[i][j] - 1] != 0)
+                            return false;
+                        else
+                            newLinea[tablero[i][j] - 1] = tablero[i][j];
+                }
             }
-        }
         return true;
     }
 
+    private void foo(int x, int y){
+        subPanels[x][y].getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if(!comprobarCambio(x, y)) {
+                    requestFocusInWindow();
+                    JOptionPane.showMessageDialog(null, "Valor invalido");
+                    /* Remove value */
+
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+    }
+
+    private boolean comprobarCambio(int x, int y){
+        int[][] tablero = getTablero();
+        try{
+           int val = Integer.parseInt(subPanels[x][y].getText());
+            if(val>9 || val<1)
+                return false;
+            else
+                tablero[x][y] = val;
+        }catch(Exception e){
+            return false;
+        }
+
+        return esValido(tablero);
+    }
     private void colorear(int r, int c) {
         subPanels[r][c].addFocusListener(new FocusListener() {
             Color original;
