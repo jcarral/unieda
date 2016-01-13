@@ -8,7 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Joseba on 12/01/2016.
+ * Como en clase comentaste que en vez de el ejercicio de apt-get se podía hacer otro, he hecho este que se propone en varios libros.
+ * Se trata de generar un laberinto perfecto, un laberinto perfecto es aquel que no tiene areas innacesibles ni bucles, es decir, un circuito cerrado.
+ * Además he implementado una función muy simple para mostrar graficamente como queda el laberinto.
+ *
+ * Tiempo empleado: 2h
  */
 public class Laberinto {
 
@@ -17,11 +21,15 @@ public class Laberinto {
     private int[][] maze;
     private int size;
 
-    private JTextField subPanels;
 
+    /**
+     * Constructor que crea un laberinto y lo dibuja en pantalla.
+     *
+     * @param N Tamaño del laberinto
+     */
     Laberinto(int N) {
 
-        size = N;
+        size = (N > 0)?N:15;
         iniciarLaberinto();
         generar();
         draw();
@@ -34,12 +42,20 @@ public class Laberinto {
         maze = new int[size][size];
     }
 
+    /**
+     * Empieza a generar el laberinto desde una casilla al azar.
+     */
     private void generar() {
         int x = (int) Math.floor(Math.random() * size), y = (int) Math.floor(Math.random() * size);
         maze[x][y] = CAMINO;
         generar(x, y);
     }
 
+    /**
+     * De forma recursiva genera un laberinto perffecto
+     * @param x Coordenada x actual
+     * @param y Coordenada y actual
+     */
     private void generar(int x, int y) {
         LinkedList<Integer> listRandomVecinos = (LinkedList) randomVecinos(x, y);
         int numRandomVecinos = listRandomVecinos.size();
@@ -77,6 +93,12 @@ public class Laberinto {
 
     }
 
+    /**
+     * Genera una lista ordenada de forma aleatoria con todos los posibles vecinos a los que se puede acceder
+     * @param x Coordenada x de la posición actual
+     * @param y Coordenada y de la posición actual
+     * @return Lista con los posibles vecinos
+     */
     private List randomVecinos(int x, int y) {
         List vecinos = new LinkedList<>();
 
@@ -96,11 +118,9 @@ public class Laberinto {
         return vecinos;
     }
 
-
-    public int[][] getMaze() {
-        return maze;
-    }
-
+    /**
+     * Función que dibuja un tablero usando swing
+     */
     private void draw() {
         JFrame frame = new JFrame("Laberinto");
         final JPanel GuiPanel = new JPanel(new GridLayout(size, size));
@@ -131,7 +151,7 @@ public class Laberinto {
         try {
             size = Integer.parseInt(JOptionPane.showInputDialog(null, "Tamaño del laberinto"));
         } catch (Exception e) {
-            size = 15;
+            size = 15; //Tamaño por defecto
         }
 
         Laberinto l = new Laberinto(size);
